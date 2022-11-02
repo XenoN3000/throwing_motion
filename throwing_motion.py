@@ -1,5 +1,6 @@
-# 101Computing.net/projection-motion-formula
 import math
+
+import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
@@ -60,12 +61,22 @@ def plot(obj: [Ball]):
     ax[0].axvline(x=10, ls='', color='black')
     ax[0].legend(loc='best')
 
+
     ax[1].set_xlabel('$t$', fontsize=14)
     ax[1].set_ylabel('$x(t)$', fontsize=14)
     ax[1].axvline(x=10, ls='', color='black')
     ax[1].legend(loc='best')
 
-    plt.show()
+    plt.subplots_adjust(left=0.1,
+                        bottom=0.1,
+                        right=0.9,
+                        top=0.9,
+                        wspace=0.4,
+                        hspace=0.4)
+    matplotlib.pyplot.show()
+    plt.show(block=True)
+
+
 
 
 if __name__ == '__main__':
@@ -85,3 +96,5 @@ if __name__ == '__main__':
         tObjects.append(obj)
 
     plot(tObjects)
+
+
