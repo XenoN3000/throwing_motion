@@ -3,7 +3,6 @@ import math
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-import numpy as np
 
 colors = list(mcolors.BASE_COLORS.keys())
 
@@ -16,7 +15,7 @@ t = 0
 
 class Ball:
 
-    def __init__(self, name: str, v: float, theta: int, color: str, x0: int = 0, y0: int = 0, maxX: int = math.inf):
+    def __init__(self, name: str, v: float, theta: int, color: str, x0: int = 0, y0: int = 0, maxx: int = math.inf):
         self.name = name
         self.v0 = v
         self.theta = (theta % 360)
@@ -29,7 +28,7 @@ class Ball:
         self.y = []
         self.x = []
         self.color = color
-        self.X = maxX
+        self.X = maxx
 
     def __str__(self):
         return f'{self.name}: v0 : {self.v0} - color:  {self.color} - theta: {self.theta}  - (y,t):  {[(self.y[i], self.t[i]) for i in range(0, self.t.__len__())]} - (x,t): {[(self.x[i], self.t[i]) for i in range(0, self.t.__len__())]}'
@@ -48,7 +47,7 @@ class Ball:
 def plot(obj: [Ball]):
     fig, ax = plt.subplots(1, 2, figsize=(8, 5))
 
-    for o in tObjects:
+    for o in obj:
         ax[0].plot(o.t, o.y, ls='-', color=o.color, lw=2, label=o.name)
 
         ax[1].plot(o.t, o.x, ls='-', color=o.color, lw=2, label=o.name)
@@ -86,7 +85,7 @@ if __name__ == '__main__':
         print(f'insert v & theta for object #{i}')
         v = int(input(f'v0_#{i} : '))
         theta = int(input(f'theta_#{i} : '))
-        obj = Ball(f'Object#{i}', v, theta, colors[i - 1], maxX=obstacle)
+        obj = Ball(f'Object#{i}', v, theta, colors[i - 1], maxx=obstacle)
         obj.throw_ball()
         tObjects.append(obj)
 
