@@ -9,7 +9,7 @@ then you should see greeting messages and ask for number of objects :
 
 <img width="682" alt="Screenshot 2022-11-12 at 1 08 01 PM" src="https://user-images.githubusercontent.com/38420835/201468287-07091ee1-8c34-4119-887c-bb51b16fc9b6.png">
 
-input number of object beetwn MIN - MAX and Press Enter then it asks for obstacle distance 
+insert number of object beetwn MIN - MAX and Press Enter then it asks for obstacle distance 
 
 <img width="682" alt="Screenshot 2022-11-12 at 1 11 27 PM" src="https://user-images.githubusercontent.com/38420835/201468396-3fcc4a0b-2e02-41fe-a864-b04bf8cc9649.png">
 
