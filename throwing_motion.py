@@ -11,15 +11,12 @@ MAX = 8
 MIN = 1
 
 gravity = 9.81  # g
-angle = 70  # theta
-velocity = 80  # v0
-
 t = 0
 
 
 class Ball:
 
-    def __init__(self, name: str, v: float, theta: int, color: str, x0: int = 0, y0: int = 0):
+    def __init__(self, name: str, v: float, theta: int, color: str, x0: int = 0, y0: int = 0, maxX: int = math.inf):
         self.name = name
         self.v0 = v
         self.theta = (theta % 360)
@@ -32,13 +29,14 @@ class Ball:
         self.y = []
         self.x = []
         self.color = color
+        self.X = maxX
 
     def __str__(self):
         return f'{self.name}: v0 : {self.v0} - color:  {self.color} - theta: {self.theta}  - (y,t):  {[(self.y[i], self.t[i]) for i in range(0, self.t.__len__())]} - (x,t): {[(self.x[i], self.t[i]) for i in range(0, self.t.__len__())]}'
 
     def throw_ball(self):
         tt = 0
-        while self.y.__len__() < 2 or self.y[-1] >= 0:
+        while (self.y.__len__() < 2 or self.y[-1] >= 0) and self.x[-1] < self.X:
             self.y.append(self.y0 + (self.vy * tt - 0.5 * gravity * tt ** 2))
             self.x.append(self.x0 + (self.vx * tt))
             self.t.append(tt)
@@ -55,12 +53,10 @@ def plot(obj: [Ball]):
 
         ax[1].plot(o.t, o.x, ls='-', color=o.color, lw=2, label=o.name)
 
-
     ax[0].set_xlabel('$t$', fontsize=14)
     ax[0].set_ylabel('$y(t)$', fontsize=14)
     ax[0].axvline(x=10, ls='', color='black')
     ax[0].legend(loc='best')
-
 
     ax[1].set_xlabel('$t$', fontsize=14)
     ax[1].set_ylabel('$x(t)$', fontsize=14)
@@ -77,12 +73,11 @@ def plot(obj: [Ball]):
     plt.show(block=True)
 
 
-
-
 if __name__ == '__main__':
     print('WELLCOME To Throwing Mothion Simulator ')
 
     count = int(input(f'input count of object(between {MIN} - {MAX}) : '))
+    obstacle = int(input(f'Place The Obstacle (Maximum x) : '))
     tObjects: [Ball] = []
     while count < MIN or count > MAX:
         count = int(input(f'\n  wrong number  \n  please Enter valid number !!! between ({MIN} - {MAX}) : '))
@@ -91,10 +86,8 @@ if __name__ == '__main__':
         print(f'insert v & theta for object #{i}')
         v = int(input(f'v0_#{i} : '))
         theta = int(input(f'theta_#{i} : '))
-        obj = Ball(f'Object#{i}', v, theta, colors[i - 1], )
+        obj = Ball(f'Object#{i}', v, theta, colors[i - 1], maxX=obstacle)
         obj.throw_ball()
         tObjects.append(obj)
 
     plot(tObjects)
-
-
