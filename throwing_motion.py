@@ -34,7 +34,8 @@ class Ball:
 
     def throw_ball(self):
         tt = 0
-        while (self.y.__len__() < 2 or self.y[-1] >= 0) and (self.x.__len__() < 1 or self.x[-1] < self.X):
+        while (self.y.__len__() < 2 or self.y[-1] >= 0) and (
+                self.x.__len__() < 1 or (self.X >= 0 and self.x[-1] < self.X) or (self.X < 0 and self.x[-1] > self.X)):
             self.y.append(self.y0 + (self.vy * tt - 0.5 * gravity * tt ** 2))
             self.x.append(self.x0 + (self.vx * tt))
             self.t.append(tt)
