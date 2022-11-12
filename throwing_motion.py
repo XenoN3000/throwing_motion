@@ -10,7 +10,6 @@ MAX = 8
 MIN = 1
 
 gravity = 9.81  # g
-t = 0
 
 
 class Ball:
