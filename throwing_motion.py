@@ -74,12 +74,25 @@ def plot(obj: [Ball]):
 
 if __name__ == '__main__':
     print('WELLCOME To Throwing Mothion Simulator ')
-
     count = int(input(f'input count of object(between {MIN} - {MAX}) : '))
-    obstacle = int(input(f'Place The Obstacle (Maximum x) : '))
-    tObjects: [Ball] = []
     while count < MIN or count > MAX:
         count = int(input(f'\n  wrong number  \n  please Enter valid number !!! between ({MIN} - {MAX}) : '))
+
+    obstacle: int
+    isObstacleAllowed: bool = False
+    while True:
+        askForObsObj = str(input('Do You wanna Place Obstacle ? (Y/N) : '))
+        match askForObsObj.split():
+            case ['y' | 'Y']:
+                obstacle = int(input(f'Place The Obstacle (Maximum x) : '))
+                break
+            case ['n' | 'N']:
+                obstacle = math.inf.__int__()
+                break
+            case default:
+                print('\ninsert valid input !!! \n')
+
+    tObjects: [Ball] = []
 
     for i in range(1, count + 1):
         print(f'insert v & theta for object #{i}')
