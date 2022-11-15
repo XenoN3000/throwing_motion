@@ -81,7 +81,7 @@ if __name__ == '__main__':
     obstacle: int
     isObstacleAllowed: bool = False
     while True:
-        askForObsObj = str(input('Do You wanna Place Obstacle ? (Y/N) : '))
+        askForObsObj = str(input('Do You wanna Place an Obstacle ? (Y/N) : '))
         match askForObsObj.split():
             case ['y' | 'Y']:
                 obstacle = int(input(f'Place The Obstacle (Maximum x) : '))
