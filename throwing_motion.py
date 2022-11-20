@@ -1,5 +1,4 @@
 import math
-import decimal
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
