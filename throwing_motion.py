@@ -1,5 +1,5 @@
 import math
-
+import decimal
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -13,7 +13,7 @@ gravity = 9.81  # g
 c = 0.0  # c
 
 
-class Ball:
+class ThrowingObject:
 
     def __init__(self, name: str, m: float, v: float, theta: int, color: str, x0: int = 0, y0: int = 0,
                  maxx: int = math.inf):
@@ -35,7 +35,7 @@ class Ball:
     def __str__(self):
         return f'{self.name}: v0 : {self.v0} - color:  {self.color} - theta: {self.theta}  - (y,t):  {[(self.y[i], self.t[i]) for i in range(0, self.t.__len__())]} - (x,t): {[(self.x[i], self.t[i]) for i in range(0, self.t.__len__())]}'
 
-    def throw_ball(self):
+    def throw_object(self):
         tt = 0
         while (self.y.__len__() < 2 or self.y[-1] >= 0) and (
                 self.x.__len__() < 1 or (self.X >= 0 and self.x[-1] < self.X) or (self.X < 0 and self.x[-1] > self.X)):
@@ -47,7 +47,7 @@ class Ball:
         self.TT = tt
 
 
-def plot(obj: [Ball]):
+def plot(obj: [ThrowingObject]):
     fig, ax = plt.subplots(1, 2, figsize=(8, 5))
 
     for o in obj:
@@ -93,20 +93,20 @@ if __name__ == '__main__':
                 obstacle = int(input(f'Place The Obstacle (Maximum x) : '))
                 break
             case ['n' | 'N']:
-                obstacle = math.inf.__int__()
+                obstacle = math.inf
                 break
             case default:
                 print('\ninsert valid input !!! \n')
 
-    tObjects: [Ball] = []
+    tObjects: [ThrowingObject] = []
 
     for i in range(1, count + 1):
-        print(f'insert v & theta for object #{i}')
+        print(f'insert M , v & theta for object #{i}')
         m = float(input(f'M_#{i} : '))
         v = int(input(f'v0_#{i} : '))
         theta = int(input(f'theta_#{i} : '))
-        obj = Ball(f'Object#{i}', m, v, theta, colors[i - 1], maxx=obstacle)
-        obj.throw_ball()
+        obj = ThrowingObject(f'Object#{i}', m, v, theta, colors[i - 1], maxx=obstacle)
+        obj.throw_object()
         tObjects.append(obj)
 
     plot(tObjects)
