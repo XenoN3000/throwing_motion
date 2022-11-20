@@ -10,11 +10,13 @@ MAX = 8
 MIN = 1
 
 gravity = 9.81  # g
+c = 0.0  # c
 
 
 class Ball:
 
-    def __init__(self, name: str, v: float, theta: int, color: str, x0: int = 0, y0: int = 0, maxx: int = math.inf):
+    def __init__(self, name: str, m: float, v: float, theta: int, color: str, x0: int = 0, y0: int = 0,
+                 maxx: int = math.inf):
         self.name = name
         self.v0 = v
         self.theta = (theta % 360)
@@ -28,6 +30,7 @@ class Ball:
         self.x = []
         self.color = color
         self.X = maxx
+        self.vr =(m * gravity) / c
 
     def __str__(self):
         return f'{self.name}: v0 : {self.v0} - color:  {self.color} - theta: {self.theta}  - (y,t):  {[(self.y[i], self.t[i]) for i in range(0, self.t.__len__())]} - (x,t): {[(self.x[i], self.t[i]) for i in range(0, self.t.__len__())]}'
@@ -36,8 +39,8 @@ class Ball:
         tt = 0
         while (self.y.__len__() < 2 or self.y[-1] >= 0) and (
                 self.x.__len__() < 1 or (self.X >= 0 and self.x[-1] < self.X) or (self.X < 0 and self.x[-1] > self.X)):
-            self.y.append(self.y0 + (self.vy * tt - 0.5 * gravity * tt ** 2))
-            self.x.append(self.x0 + (self.vx * tt))
+            self.y.append(((self.vr / gravity) * (self.vy + self.vr) * (1 - math.e ** (-gravity * tt / self.vr)) - (self.vr * tt)))
+            self.x.append((((self.vr * self.vx) / gravity) * (1 - math.e ** (-gravity * tt / self.vr))))
             self.t.append(tt)
             tt += 0.001
 
@@ -74,6 +77,9 @@ def plot(obj: [Ball]):
 
 if __name__ == '__main__':
     print('WELLCOME To Throwing Mothion Simulator ')
+
+    c = float(input('insert c : '))
+
     count = int(input(f'input count of object(between {MIN} - {MAX}) : '))
     while count < MIN or count > MAX:
         count = int(input(f'\n  wrong number  \n  please Enter valid number !!! between ({MIN} - {MAX}) : '))
@@ -96,9 +102,10 @@ if __name__ == '__main__':
 
     for i in range(1, count + 1):
         print(f'insert v & theta for object #{i}')
+        m = float(input(f'M_#{i} : '))
         v = int(input(f'v0_#{i} : '))
         theta = int(input(f'theta_#{i} : '))
-        obj = Ball(f'Object#{i}', v, theta, colors[i - 1], maxx=obstacle)
+        obj = Ball(f'Object#{i}', m, v, theta, colors[i - 1], maxx=obstacle)
         obj.throw_ball()
         tObjects.append(obj)
 
