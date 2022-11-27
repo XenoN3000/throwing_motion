@@ -47,12 +47,12 @@ class ThrowingObject:
 
 
 def plot(obj: [ThrowingObject]):
-    fig, ax = plt.subplots(1, 2, figsize=(8, 5))
+    fig, ax = plt.subplots(3, 1, figsize=(10,25))
 
     for o in obj:
         ax[0].plot(o.t, o.y, ls='-', color=o.color, lw=2, label=o.name)
-
         ax[1].plot(o.t, o.x, ls='-', color=o.color, lw=2, label=o.name)
+        ax[2].plot(o.x, o.y, ls='-', color=o.color, lw=2, label=o.name)
 
     ax[0].set_xlabel('$t$', fontsize=14)
     ax[0].set_ylabel('$y(t)$', fontsize=14)
@@ -63,6 +63,11 @@ def plot(obj: [ThrowingObject]):
     ax[1].set_ylabel('$x(t)$', fontsize=14)
     ax[1].axvline(x=10, ls='', color='black')
     ax[1].legend(loc='best')
+
+    ax[2].set_xlabel('$x$', fontsize=14)
+    ax[2].set_ylabel('$y$', fontsize=14)
+    ax[2].axvline(x=10, ls='', color='black')
+    ax[2].legend(loc='best')
 
     plt.subplots_adjust(left=0.1,
                         bottom=0.1,
